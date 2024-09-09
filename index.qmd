@@ -2,30 +2,29 @@
 title: "Homework: Finding Your Way in R and Python"
 execute:
   error: true
-author: "Your Name"
+author: "Arian Alai"
 output: html_document
 ---
 
 Instructions: Once you have finished this assignment, render the document (Ctrl/Cmd-Shift-K or the Render button). Commit the qmd file and any other files you have changed to the repository and push your changes.
 
-In Canvas, submit a link to your github repository containing the updated files. 
+In Canvas, submit a link to your github repository containing the updated files.
 
-Note: Submitting your link in Canvas lets me know that you are ready for me to grade your homework. You can commit half-finished or not-working homework to GitHub, and it is good practice to commit frequently (at least at the end of each work session). 
+Note: Submitting your link in Canvas lets me know that you are ready for me to grade your homework. You can commit half-finished or not-working homework to GitHub, and it is good practice to commit frequently (at least at the end of each work session).
 
 # Modes of Execution
 
 Consider the 6 counting words examples in the [textbook module](https://srvanderplas.github.io/stat-computing-r-python/part-tools/04-scripts-notebooks.html#a-short-history-of-talking-to-computers) (they are in 3 separate 'your turn' sections). Look at the code, and then at the information provided for each example. What is different? What is the same? Write 2-3 sentences describing how script mode, interactive mode, and command-line mode differ in R and Python.
 
----
+------------------------------------------------------------------------
 
-Replace this line of text with your 2-3 sentences about script-mode, interactive mode, and command-line mode in R and Python
+Interactive mode allows users to execute commands directly in a console or terminal to provide immediate feedback for quick tests and explorations, but this is accessed through the RStudio Console in R, while it's accessed through the Terminal using python3 or python commands in Python. Script mode involves writing and running code from saved script files within an IDE or from the command line, but R uses the Rscript command while Python uses python3 or python. Command-line mode involves executing scripts directly from the terminal or command prompt, but the syntax highlighting is different between R and Python.
 
----
-
+------------------------------------------------------------------------
 
 # Programming with Variables
 
-In this section, you'll demonstrate that you understand how to solve simple math problems using code. First, you'll want to define variables to represent the variables in the equation. Give the variables values that can be used to determine the value of the variable on the other side of the `=`. Then, write code to solve the equation for the value of the variable. 
+In this section, you'll demonstrate that you understand how to solve simple math problems using code. First, you'll want to define variables to represent the variables in the equation. Give the variables values that can be used to determine the value of the variable on the other side of the `=`. Then, write code to solve the equation for the value of the variable.
 
 ## Pythagorean Theorem in R
 
@@ -34,19 +33,53 @@ $$a^2 + b^2 = c^2$$
 Use the chunk below to define variables $a$, $b$, and $c$, where you define the values of $a$ and $b$, and $c$ is determined mathematically. You may need to find the square root function in R to make this work.
 
 ```{r pythagorean-theorem-r}
-# Your pythagorean theorem code goes here
+a <- 3
+b <- 4
+c <- sqrt(a^2 + b^2)
+c
+```
 
+## Pythagorean Theorem in Python
+
+```{python pythagorean-theorem-py}
+a = 7
+b = 24
+c = (a**2 + b**2)**0.5
+c
+```
+
+```         
 ```
 
 ## Quadratic Formula in Python
 
 $$x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$$
 
-Use the chunk below to define variables $a$, $b$, and $c$, and then define $x1$ and $x2$, the possible values for $x$. You may find it helpful to define a few additional variables, such as the value of the discriminant $\sqrt{b^2 - 4ac}$, to make it easier to calculate the results. 
+Use the chunk below to define variables $a$, $b$, and $c$, and then define $x1$ and $x2$, the possible values for $x$. You may find it helpful to define a few additional variables, such as the value of the discriminant $\sqrt{b^2 - 4ac}$, to make it easier to calculate the results.
+
+```{r quad-formula-r}
+a <- -2
+b <- 3
+c <- 4
+d <- sqrt(b^2 - 4*a*c)
+x1 <- (-b + d)/(2*a)
+x2 <- (-b - d)/(2*a)
+x1
+x2
+```
+
+## Quadratic Formula in R
 
 ```{python quad-formula-py}
-# Your quadratic formula code goes here
-
+import math
+a = 1
+b = 2
+c = 1
+d = b**2 - 4*a*c
+x1 = (-b + math.sqrt(d)) / 2*a
+x2 = (-b - math.sqrt(d)) / 2*a
+x1
+x2
 ```
 
 # Debugging practice
@@ -74,11 +107,20 @@ salary
 
 ------------------------------------------------------------------------
 
-The problem with the data is:
+The problem with the data is that there is inconsistent formatting in the Salary column. The first row has a '\$' sign and commas, while the others don't. This problem can be fixed by using the gsub function to remove the '\$' sign and commas from the Salary column and converting the column to numeric using the as.numeric function to ensure it is being treated as a numerical variable.
 
 Here is how I solved the problem:
 
 ```{r cleaning-the-data-r}
-# Your implementation code goes here
+# This line reads in a tab-separated data file with a header naming the columns
+salary <- read.table("02-data.tsv", sep = "\t", header = T)
+salary$Salary <- as.numeric(gsub("[$,]", "", salary$Salary))
 
+# This code plots labels for each individual at location (x, y)
+library(ggplot2)
+ggplot(salary, aes(x = Hire.Year, y = Salary, label = Name)) + 
+  geom_label()
+
+# This displays the salary object
+salary
 ```
