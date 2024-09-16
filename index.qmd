@@ -59,11 +59,13 @@ Use the chunk below to define variables $a$, $b$, and $c$, and then define $x1$ 
 
 ```{r quad-formula-r}
 a <- -2
-b <- 3
-c <- 4
-d <- sqrt(b^2 - 4*a*c)
+b <- 2
+c <- 1
+d <- sqrt(as.complex(b^2 - 4*a*c))
 x1 <- (-b + d)/(2*a)
 x2 <- (-b - d)/(2*a)
+
+# Note: i denotes an imaginary number
 x1
 x2
 ```
@@ -71,13 +73,15 @@ x2
 ## Quadratic Formula in R
 
 ```{python quad-formula-py}
-import math
+import cmath
 a = 1
 b = 2
 c = 1
 d = b**2 - 4*a*c
-x1 = (-b + math.sqrt(d)) / 2*a
-x2 = (-b - math.sqrt(d)) / 2*a
+x1 = (-b + cmath.sqrt(d)) / (2*a)
+x2 = (-b - cmath.sqrt(d)) / (2*a)
+
+# Note: j denotes an imaginary number
 x1
 x2
 ```
